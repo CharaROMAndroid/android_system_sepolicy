@@ -98,12 +98,3 @@ type theme_service,                     app_api_service, system_server_service, 
 
 type usb_auth_service,        service_manager_type;
 type hid_service,        app_api_service, service_manager_type;
-
-###
-### Neverallow rules
-###
-
-# servicemanager handles registering or looking up named services.
-# It does not make sense to register or lookup something which is not a service.
-# Trigger a compile error if this occurs.
-neverallow domain ~{ service_manager_type vndservice_manager_type }:service_manager { add find };
