@@ -1,0 +1,11 @@
+# A platform-signed Settings package shares system UID. Unix mode 0600 is not
+# sufficient to keep the local sanitized-font authentication key secret from it.
+type font_sanitizer_key_file, file_type, data_file_type, core_data_file_type;
+
+allow system_server font_sanitizer_key_file:file create_file_perms;
+type_transition system_server system_data_file:file font_sanitizer_key_file "sanitizer.key";
+type_transition system_server system_data_file:file font_sanitizer_key_file "sanitizer.key.new";
+type_transition system_server system_data_file:file font_sanitizer_key_file "sanitizer.key.bak";
+
+# Receipts may only be minted by system_server after isolated sanitation.
+neverallow { domain -init -system_server } font_sanitizer_key_file:file *;

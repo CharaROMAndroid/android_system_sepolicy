@@ -1001,3 +1001,6 @@
 #############################
 # For casefolding_remover
 /system/bin/casefolding_remover u:object_r:casefolding_remover_exec:s0
+
+# Includes AtomicFile staging/backup files; protect the HMAC key from shared UID apps.
+/data/fonts/config/sanitizer\.key(\.new|\.bak)? u:object_r:font_sanitizer_key_file:s0
